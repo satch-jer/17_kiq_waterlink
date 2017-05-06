@@ -3,8 +3,6 @@ $(function() {
     var form = $('#form_registration');
     var message = $('#form_registration_message');
 
-
-
     $(form).on("submit", function(e){
         e.preventDefault();
 
@@ -16,25 +14,18 @@ $(function() {
             $.ajax({
                 type: 'POST',
                 url: $(form).attr('action'),
-                data: formdata
+                data: formdata,
+                dataType: 'json'
             }).done(function(response){
-                //set success message
-                $(message).removeClass('error');
-                $(message).addClass('success');
-                $(message).text(response);
-
-                //clear form
-                $('#message').val('');
-            }).fail(function(data){
-                //set error message
-                $(message).removeClass('success');
-                $(message).addClass('error');
-
-                if(data.responseText !== ''){
-                    $(message).text(data.responseText);
+                if(response["result"]){
+                    $(message).removeClass('error');
+                    $(message).addClass('success');
                 }else{
-                    $(message).text('Sorry, er ging iets mis. Probeer even opnieuw.');
+                    $(message).removeClass('success');
+                    $(message).addClass('error');
                 }
+
+                $(message).text(response["message"]);
             });
         }else{
             //set error message

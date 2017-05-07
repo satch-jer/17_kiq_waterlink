@@ -101,10 +101,13 @@ class Player{
         $stmt->bindParam(':mail', $this->mail);
         $stmt->bindParam(':event', $this->event);
 
-        $stmt->execute();
-        $db = null;
-
-        return true;
+        if($stmt->execute()){
+            $db = null;
+            return true;
+        }else{
+            $db = null;
+            return false;
+        }
     }
 
     //check if mail exists
@@ -120,6 +123,22 @@ class Player{
         }else{
             return false;
         }
+    }
+
+    //get participation status
+    public function participated(){
+        $db = Db::getInstance();
+
+        $stmt = $db->prepare("SELECT lastname FROM players WHERE mail = :mail");
+        $stmt->bindParam(':mail', $mail);
+
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        $db = null;
+
+        return $result["lastname"];
+
     }
 
     //update after participation
@@ -150,10 +169,13 @@ class Player{
         $stmt->bindParam(':question_2', $this->question_2);
         $stmt->bindParam(':mail', $mail);
 
-        $stmt->execute();
-        $db = null;
-
-        return true;
+        if($stmt->execute()){
+            $db = null;
+            return true;
+        }else{
+            $db = null;
+            return false;
+        }
     }
 
 }

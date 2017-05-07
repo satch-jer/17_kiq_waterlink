@@ -13,8 +13,12 @@ main{
 
 .success{
     color: green;
+    display: block;
+    margin-bottom: 15px;
 }
 
 .error{
     color: tomato;
+    display: block;
+    margin-bottom: 15px;
 }

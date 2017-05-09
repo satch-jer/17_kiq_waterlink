@@ -128,31 +128,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $player->question_1 = strip_tags(trim($_POST["form_game_input_q1"]));
         $player->question_2 = strip_tags(trim($_POST["form_game_input_q2"]));
 
+        //check participation
+        $participated = $player->participated($recipient);
+
         //check if player exist
         if($player->exist($recipient)){
-            if($player->updatePlayer($recipient)){
-                //create new mailin object
-                $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'gFfSEwGJ3MsWv7YP');
+            if(empty($participated)){
+                if($player->updatePlayer($recipient)){
+                    //create new mailin object
+                    $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'gFfSEwGJ3MsWv7YP');
 
-                //send mail
-                $data = array("id" => 3,
-                    "to" => $recipient
-                );
+                    //send mail
+                    $data = array("id" => 3,
+                        "to" => $recipient
+                    );
 
-                //dump response
-                if($mailin->send_transactional_template($data)){
-                    $form_feedback = "Proficiat, uw deelname is bevestigd.";
+                    if($mailin->send_transactional_template($data)){
+                        $form_feedback = "Proficiat, uw deelname is bevestigd.";
+                    }else{
+                        $form_feedback = "Oei, er ging iets mis. Probeer later opnieuw.";
+                    }
                 }else{
-                    $form_feedback = "Oei, er ging iets mis. Probeer later opnieuw.";
+                    $form_feedback = "Oei, er ging iets mis. Probeer later even opnieuw.";
                 }
             }else{
-                $form_feedback = "Oei, er ging iets mis. Probeer later even opnieuw.";
+                $form_feedback = "Nice try, maar je hebt al deelgenomen :)";
             }
-        }
         }else{
             $form_feedback = "Oei, dit mailadres kennen we niet...";
         }
-
+    }
 }
 
 ?>

@@ -126,7 +126,7 @@ class Player{
     }
 
     //get participation status
-    public function participated(){
+    public function participated($mail){
         $db = Db::getInstance();
 
         $stmt = $db->prepare("SELECT lastname FROM players WHERE mail = :mail");

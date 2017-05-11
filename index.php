@@ -21,7 +21,7 @@
 
 <main class="content" role="main">
     <div class="wrapper">
-        <form id="form_registration" action="php/mailone.php">
+        <form id="form_registration">
             <label for="form_registration_input_event">event:</label>
             <select name="form_registration_input_event" id="form_registration_input_event">
                 <?php
@@ -42,6 +42,15 @@
 
             <p id="form_registration_message"></p>
         </form>
+
+        <div id="form_unsynced">
+            <a href="#" id="form_unsynced_show">toon niet-gesynchroniseerde adressen</a>
+
+            <ul id="form_unsyced_list">
+
+            </ul>
+        </div>
+
     </div>
 </main>
 

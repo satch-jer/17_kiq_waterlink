@@ -46,7 +46,7 @@
         <div id="form_unsynced">
             <a href="#" id="form_unsynced_show">toon niet-gesynchroniseerde adressen</a>
 
-            <ul id="form_unsyced_list">
+            <ul id="form_unsynced_list">
 
             </ul>
         </div>

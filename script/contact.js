@@ -6,8 +6,10 @@ $(function() {
     var $form_unsynced_list = $("#form_unsynced_list");
     var $form_mail = $('#form_registration_input_email');
 
-    //unsynced addresses showed?
-    var unsynced_showed = false;
+    //add localstorage elements
+    for(var i in localStorage){
+        $form_unsynced_list.append("<li><a id='" + localStorage[i] +"' class='form_unsynced_list_item ' href='#'>" + localStorage[i] + "</a></li>");
+    }
 
     //remove status text
     $('body').on('click', $form_mail, function(e){
@@ -19,7 +21,6 @@ $(function() {
         e.preventDefault();
 
         if(navigator.onLine){
-            alert("browser online");
             if($('#form_registration_input_conditions').is(":checked")){
                 //serialize (key-value) the form data
                 var formdata = $($form).serialize();
@@ -54,13 +55,12 @@ $(function() {
             }
         }
         else{
-            alert("browser offline");
             if (typeof(Storage) !== "undefined") {
                 // localstorage
 
                 //get input email
                 var email = $("#form_registration_input_email").val();
-                var key = "waterlink_" + localStorage.length;
+                var key = email;
 
                 //set mail in local storage
                 localStorage.setItem(key, email);
@@ -70,6 +70,13 @@ $(function() {
                 $message.addClass('success');
                 $message.text("Je bent offline, dit mailadres werd tijdelijk in local storage opgeslagen. Niet vergeten te syncen!");
 
+                //append item to list
+                $form_unsynced_list.append("<li><a id='" + localStorage.key(key) +"' class='form_unsynced_list_item ' href='#'>" + email + "</a></li>");
+
+                //clear form after submission
+                $form.each(function(){
+                    this.reset();
+                });
             } else {
                 // sorry! no web storage support..
             }
@@ -80,33 +87,20 @@ $(function() {
     $form_unsynced_link.on("click", function(e){
         e.preventDefault();
 
-        if(!unsynced_showed){
-            //set unsynced_showed to true
-            unsynced_showed = true;
+        $form_unsynced_list.toggle("slow", function(){
 
-            //add localstorage elements
-            for(var i in localStorage){
-                $form_unsynced_list.append("<li><a id='" + localStorage.key(i) +"' class='form_unsynced_list_item ' href='#'>" + localStorage[i] + "</a></li>");
-            }
-        }else{
-            //set unsynced_showed to false;
-            $unsynced_showed = false;
-
-            //empty list
-            $form_unsynced_list.empty();
-        }
+        });
     });
 
     //submit unsynced
-    $('body').on('click', '.form_unsynced_list_item', function(e){
+    $(document).on('click', '.form_unsynced_list_item', function(e){
         e.preventDefault();
 
         //get key
-        var key = $(this).attr('id');
+        var key = $(this).text();
 
         //get value
         var value = localStorage.getItem(key);
-        alert(value);
 
         //add data to form
         $form_mail.val(value);

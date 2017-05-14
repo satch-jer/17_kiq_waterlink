@@ -23,6 +23,11 @@ main{
     margin-bottom: 15px;
 }
 
-.li{
+li{
     list-style-type: none;
 }
+
+#form_unsynced_list{
+    display: none;
+}
+

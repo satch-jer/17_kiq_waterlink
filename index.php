@@ -7,7 +7,7 @@
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="en" manifest="offline.manifest">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -44,22 +44,17 @@
         </form>
 
         <div id="form_unsynced">
-            <a href="#" id="form_unsynced_show">toon niet-gesynchroniseerde adressen</a>
-
-            <ul id="form_unsynced_list">
-
-            </ul>
+            <a href="#" id="form_unsynced_show">niet-gesynchroniseerde adressen</a>
+            <ul id="form_unsynced_list"></ul>
         </div>
-
     </div>
 </main>
 
 
 <!-- js links -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+<script src="script/jquery-3.2.1.min.js"></script>
 <script src="script/contact.js"></script>
 
 </body>
-
 
 </html>

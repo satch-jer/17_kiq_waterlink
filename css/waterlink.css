@@ -1,33 +1,98 @@
-input, select{
-    display: block;
-    margin: 15px auto;
-}
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700");
+.screenreader {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden; }
 
-main{
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+html {
+  -webkit-font-smoothing: antialiased; }
 
-.success{
-    color: green;
-    display: block;
-    margin-bottom: 15px;
-}
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: #202020;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box; }
 
-.error{
-    color: tomato;
-    display: block;
-    margin-bottom: 15px;
-}
+.container {
+  display: table;
+  width: 100%; }
 
-li{
-    list-style-type: none;
-}
+.container_cell {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center; }
 
-#form_unsynced_list{
-    display: none;
-}
+.container_content {
+  margin-left: auto;
+  margin-right: auto; }
 
+#logo {
+  margin-bottom: 75px; }
+
+form {
+  margin-bottom: 75px; }
+
+select,
+input[type="text"],
+input[type="submit"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px; }
+
+select:focus,
+input[type="text"]:focus,
+input[type="submit"]:focus {
+  outline: none; }
+
+input[type="submit"] {
+  color: white;
+  background-color: #2d77bd;
+  margin-bottom: 35px; }
+
+#form_registration_div_conditions {
+  margin-bottom: 35px; }
+  #form_registration_div_conditions input[type="checkbox"],
+  #form_registration_div_conditions label {
+    display: inline-block; }
+  #form_registration_div_conditions label {
+    margin-left: 15px; }
+
+#form_unsynced {
+  border-top: 1px solid #e5e5e5;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 23px; }
+
+h2 {
+  font-size: inherit; }
+
+a {
+  color: #202020; }
+
+ul {
+  list-style-type: none; }
+
+.succes {
+  color: limegreen; }
+
+.error {
+  color: #f5812c; }
+
+/*# sourceMappingURL=waterlink.css.map */

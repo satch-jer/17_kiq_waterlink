@@ -1,0 +1,153 @@
+//===fonts===
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+
+//===colors===
+
+$concrete: #e5e5e5;
+$night: #202020;
+$orange: #f5812c;
+$smurf: #2d77bd;
+
+
+//===values===
+
+$xs: 5px;
+$s: 15px;
+$m: 23px;
+$l: 35px;
+$xl: 50px;
+$xxl: 75px;
+
+//===basics===
+
+.screenreader{
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+//===basic frame===
+
+html{
+  //make sure fonts are sharp!
+  -webkit-font-smoothing: antialiased;
+}
+
+body{
+  //font default
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  color: $night;
+
+  //div elements have padding and border included in total width & height
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
+.container{
+  display: table;
+  width: 100%;
+}
+
+.container_cell{
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.container_content{
+  margin-left: auto;
+  margin-right: auto;
+}
+
+//===form styling===
+
+#logo{
+  margin-bottom: $xxl;
+}
+
+form{
+  margin-bottom: $xxl;
+}
+
+select,
+input[type="text"],
+input[type="submit"]{
+
+  //remove first default styling
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  display: block;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+
+  border: 1px solid $concrete;
+  border-radius: $xs;
+  padding: $s;
+  margin-bottom: $s;
+}
+
+  select:focus,
+  input[type="text"]:focus,
+  input[type="submit"]:focus{
+    outline: none;
+  }
+
+  input[type="submit"]{
+    color: white;
+    background-color: $smurf;
+    margin-bottom: $l;
+  }
+
+#form_registration_div_conditions{
+  margin-bottom: $l;
+
+  input[type="checkbox"],
+  label {
+    display: inline-block;
+  }
+
+  label{
+    margin-left: $s;
+  }
+}
+
+#form_unsynced{
+  border-top: 1px solid $concrete;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: $m;
+}
+
+h2{
+  font-size: inherit;
+}
+
+a{
+  color: $night;
+}
+
+ul{
+  list-style-type: none;
+}
+
+.succes{
+  color: limegreen;
+}
+
+.error{
+  color: $orange;
+}

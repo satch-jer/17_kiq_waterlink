@@ -37,7 +37,7 @@ $(function() {
                     //submit form with ajax
                     $.ajax({
                         type: 'POST',
-                        url: 'php/mailone.php',
+                        url: 'php/firstmail.php',
                         data: formdata,
                         dataType: 'json'
                     }).done(function(response){

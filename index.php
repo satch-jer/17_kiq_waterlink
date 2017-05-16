@@ -60,8 +60,8 @@
 
 
 <!-- js links -->
-<script src="script/jquery-3.2.1.min.js"></script>
-<script src="script/contact.js"></script>
+<script src="script/lib/jquery-3.2.1.min.js"></script>
+<script src="script/index.js"></script>
 
 </body>
 

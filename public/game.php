@@ -12,7 +12,7 @@ include_once '../php/secondmail.php'
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../css/normalize.css">
     <link rel="stylesheet" type="text/css" href="../css/game.css">
-    <title>Game | Waterlink</title>
+    <title>Play en win | Water-link</title>
 </head>
 
 <body>

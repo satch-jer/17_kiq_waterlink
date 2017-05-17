@@ -2,9 +2,6 @@ var data = {};
 
 $(document).ready(function(){
 
-    //url
-    var $form = $("#form_game");
-
     $('#form_game_input_submit').on("click", function(){
         resetErrors();
 
@@ -17,13 +14,12 @@ $(document).ready(function(){
         $.ajax({
             dataType: 'json',
             type: 'POST',
-            url: $form.attr('action'),
+            url: '../php/secondmail.php',
             data: data,
             success: function(resp){
-                if(resp == true){
-                    $('form').submit();
-                    $('form').reset();
-                    $("#form_game_confirm").text('Uw deelname werd bevestigd, bedankt!');
+                if(resp === true){
+                    $('form')[0].reset();
+                    $("#form_game_confirm").addClass('success').text('Uw deelname werd bevestigd, bedankt!');
                     return false;
                 }else{
                     $.each(resp, function(i,v){
@@ -35,7 +31,7 @@ $(document).ready(function(){
                 }
                 return false;
             },
-            error: function(){
+            error: function(resp){
                 $("#form_game_confirm").text('Er ging iets mis met uw registratie, probeer later nog eens!');
             }
         });

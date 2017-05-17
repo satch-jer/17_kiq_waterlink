@@ -1,0 +1,120 @@
+@import "waterlink";
+
+
+//===navigation===
+nav{
+  width: 100%;
+  text-align: center;
+  margin-top: $m;
+  margin-bottom: $xxl;
+}
+
+#nav_logo{
+  display: block;
+  width: 187px;
+  height: 45px;
+  text-decoration: none;
+  text-indent: -9999px;
+  background-image: url(../assets/logo.png);
+  background-repeat: no-repeat;
+  margin: 0 auto 0px auto;
+}
+
+//===main content===
+.content{
+  max-width: 960px;
+  margin: 0 auto;
+  padding-left: $m;
+  padding-right: $m;
+}
+
+.intro{
+  margin-bottom: $l;
+}
+
+h1{
+  font-size: 32px;
+  line-height: $xl;
+  color: $smurf;
+  margin-bottom: $m;
+  font-weight: 400;
+}
+
+h2{
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 400;
+  color: $ratten;
+}
+
+table{
+  margin-bottom: $l;
+  width: 100%;
+}
+
+td{
+  width: 50%;
+
+  input[type="text"]{
+    width: 100%;
+  }
+}
+
+
+.form_game_input_q{
+  margin-bottom: $s;
+}
+
+select,
+input[type="text"],
+input[type="submit"]{
+
+  //remove first default styling
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  display: block;
+
+  border: 1px solid $concrete;
+  border-radius: $xs;
+  padding: $s;
+  margin-bottom: $xs;
+
+  width: 50%;
+}
+
+//inputfields for questions needs larger margin-bottom
+#form_game_input_q2, #form_game_input_q1{
+  margin-bottom: $s;
+}
+
+#form_game_input_submit{
+  margin-top: $l;
+}
+
+select:focus,
+input[type="text"]:focus,
+input[type="submit"]:focus{
+  outline: none;
+}
+
+input[type="submit"]{
+  color: white;
+  background-color: $smurf;
+  margin-bottom: $l;
+}
+
+.inputTxtError {
+  border: 1px solid $orange !important;
+  border-radius: $xs;
+  padding: $s;
+  margin-bottom: $xs;
+}
+
+input[type="text"], input[type="date"],label{
+  display: block;
+}

@@ -1,54 +1,4 @@
-//===fonts===
-
-@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
-
-
-//===colors===
-
-$concrete: #e5e5e5;
-$night: #202020;
-$orange: #f5812c;
-$smurf: #2d77bd;
-
-
-//===values===
-
-$xs: 5px;
-$s: 15px;
-$m: 23px;
-$l: 35px;
-$xl: 50px;
-$xxl: 75px;
-
-//===basics===
-
-.screenreader{
-  position:absolute;
-  left:-10000px;
-  top:auto;
-  width:1px;
-  height:1px;
-  overflow:hidden;
-}
-
-//===basic frame===
-
-html{
-  //make sure fonts are sharp!
-  -webkit-font-smoothing: antialiased;
-}
-
-body{
-  //font default
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 18px;
-  line-height: 24px;
-  color: $night;
-
-  //div elements have padding and border included in total width & height
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-}
+@import "waterlink";
 
 .container{
   display: table;
@@ -141,13 +91,7 @@ a{
 }
 
 ul{
-  list-style-type: none;
-}
-
-.succes{
-  color: limegreen;
-}
-
-.error{
-  color: $orange;
+  list-style: none;
+  padding-left: 0;
+  display: none;
 }

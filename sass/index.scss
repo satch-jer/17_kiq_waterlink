@@ -1,97 +1,44 @@
 @import "waterlink";
 
-.container{
-  display: table;
-  width: 100%;
-}
 
-.container_cell{
-  display: table-cell;
-  vertical-align: middle;
+#content{
+  //content always same height as ipad screen
+  //overflow content will be hidden
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
   text-align: center;
+  position: relative;
 }
 
-.container_content{
-  margin-left: auto;
-  margin-right: auto;
-}
+#content_images{
+  padding-top: $xxl;
+  padding-bottom: $xxl;
 
-//===form styling===
-
-#logo{
-  margin-bottom: $xxl;
-}
-
-form{
-  margin-bottom: $xxl;
-}
-
-select,
-input[type="text"],
-input[type="submit"]{
-
-  //remove first default styling
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-
-  display: block;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-
-  border: 1px solid $concrete;
-  border-radius: $xs;
-  padding: $s;
-  margin-bottom: $s;
-}
-
-  select:focus,
-  input[type="text"]:focus,
-  input[type="submit"]:focus{
-    outline: none;
+  #img_speelwin{
+    height: 350px;
+    padding-bottom: $xxl;
   }
+  #img_kraantje{
+    height: 200px;
+  }
+}
 
-  input[type="submit"]{
-    color: white;
+#content_borders{
+  position: absolute;
+  bottom: 10px;
+  height: 180px;
+  width: 100%;
+
+  .content_borders{
+    width: 100%;
+    height: 10px;
+    margin-bottom: 10px;
+  }
+  .blue{
     background-color: $smurf;
-    margin-bottom: $l;
   }
-
-#form_registration_div_conditions{
-  margin-bottom: $l;
-
-  input[type="checkbox"],
-  label {
-    display: inline-block;
+  .orange{
+    background-color: $orange;
   }
-
-  label{
-    margin-left: $s;
-  }
-}
-
-#form_unsynced{
-  border-top: 1px solid $concrete;
-  width: 40%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: $m;
-}
-
-h2{
-  font-size: inherit;
-}
-
-a{
-  color: $night;
-}
-
-ul{
-  list-style: none;
-  padding-left: 0;
-  display: none;
 }

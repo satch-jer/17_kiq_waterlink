@@ -1,6 +1,17 @@
 var data = {};
 
+$('#form_game_input_submit').prop("disabled", true);
+
 $(document).ready(function(){
+
+    //submit button only enabled when conditions are accepted
+    $('#form_game_input_conditions').click(function(){
+        if($(this).is(':checked')){
+            $('#form_game_input_submit').prop("disabled", false);
+        }else{
+            $('#form_game_input_submit').prop("disabled", true);
+        }
+    });
 
     $('#form_game_input_submit').on("click", function(){
         resetErrors();
@@ -31,7 +42,7 @@ $(document).ready(function(){
                 }
                 return false;
             },
-            error: function(resp){
+            error: function(){
                 $("#form_game_confirm").text('Er ging iets mis met uw registratie, probeer later nog eens!');
             }
         });

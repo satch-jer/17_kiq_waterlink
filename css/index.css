@@ -13,8 +13,8 @@
 
 .error {
   color: #f5812c;
-  font-size: 12px;
-  margin-left: 15px; }
+  margin-left: 15px;
+  margin-bottom: 15px; }
 
 html {
   -webkit-font-smoothing: antialiased; }
@@ -27,77 +27,34 @@ body {
   box-sizing: border-box;
   -webkit-box-sizing: border-box; }
 
-.container {
-  display: table;
+#content {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  text-align: center;
+  position: relative; }
+
+#content_images {
+  padding-top: 75px;
+  padding-bottom: 75px; }
+  #content_images #img_speelwin {
+    height: 350px;
+    padding-bottom: 75px; }
+  #content_images #img_kraantje {
+    height: 200px; }
+
+#content_borders {
+  position: absolute;
+  bottom: 10px;
+  height: 180px;
   width: 100%; }
-
-.container_cell {
-  display: table-cell;
-  vertical-align: middle;
-  text-align: center; }
-
-.container_content {
-  margin-left: auto;
-  margin-right: auto; }
-
-#logo {
-  margin-bottom: 75px; }
-
-form {
-  margin-bottom: 75px; }
-
-select,
-input[type="text"],
-input[type="submit"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  border: 1px solid #e5e5e5;
-  border-radius: 5px;
-  padding: 15px;
-  margin-bottom: 15px; }
-
-select:focus,
-input[type="text"]:focus,
-input[type="submit"]:focus {
-  outline: none; }
-
-input[type="submit"] {
-  color: white;
-  background-color: #2d77bd;
-  margin-bottom: 35px; }
-
-#form_registration_div_conditions {
-  margin-bottom: 35px; }
-  #form_registration_div_conditions input[type="checkbox"],
-  #form_registration_div_conditions label {
-    display: inline-block; }
-  #form_registration_div_conditions label {
-    margin-left: 15px; }
-
-#form_unsynced {
-  border-top: 1px solid #e5e5e5;
-  width: 40%;
-  margin-left: auto;
-  margin-right: auto;
-  padding-top: 23px; }
-
-h2 {
-  font-size: inherit; }
-
-a {
-  color: #202020; }
-
-ul {
-  list-style: none;
-  padding-left: 0;
-  display: none; }
+  #content_borders .content_borders {
+    width: 100%;
+    height: 10px;
+    margin-bottom: 10px; }
+  #content_borders .blue {
+    background-color: #2d77bd; }
+  #content_borders .orange {
+    background-color: #f5812c; }
 
 /*# sourceMappingURL=index.css.map */

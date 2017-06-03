@@ -28,15 +28,10 @@ nav{
   padding-right: $m;
 }
 
-.intro{
-  margin-bottom: $l;
-}
-
 h1{
   font-size: 32px;
   line-height: $xl;
   color: $smurf;
-  margin-bottom: $m;
   font-weight: 400;
 }
 
@@ -45,6 +40,8 @@ h2{
   line-height: 30px;
   font-weight: 400;
   color: $ratten;
+  margin-top: $l;
+  margin-bottom: $l;
 }
 
 table{
@@ -65,8 +62,15 @@ td{
   margin-bottom: $s;
 }
 
+#required{
+  font-size: 15px;
+  padding-bottom: $m;
+  font-style: italic;
+}
+
 select,
 input[type="text"],
+input[type="date"],
 input[type="submit"]{
 
   //remove first default styling
@@ -96,8 +100,19 @@ input[type="submit"]{
   margin-top: $l;
 }
 
+.form_game_checkbox{
+  margin-bottom: $s;
+  input, label{
+    display: inline-block;
+  }
+  label{
+    margin-left: $s;
+  }
+}
+
 select:focus,
 input[type="text"]:focus,
+input[type="date"]:focus,
 input[type="submit"]:focus{
   outline: none;
 }
@@ -117,4 +132,8 @@ input[type="submit"]{
 
 input[type="text"], input[type="date"],label{
   display: block;
+}
+
+input[type="submit"]:disabled {
+  background: #dddddd;
 }

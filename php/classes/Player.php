@@ -16,6 +16,9 @@ class Player{
     private $birthday;
     private $question_1;
     private $question_2;
+    private $registration;
+    private $conditions;
+    private $marketing;
 
     //set
     public function __set($prop, $val){
@@ -56,6 +59,15 @@ class Player{
             case 'question_2':
                 $this->question_2 = $val;
                 break;
+            case 'registration':
+                $this->registration = $val;
+                break;
+            case 'conditions':
+                $this->conditions = $val;
+                break;
+            case 'marketing':
+                $this->marketing = $val;
+                break;
             default:
                 echo "Error: " . $prop . " bestaat niet.";
         }
@@ -88,6 +100,12 @@ class Player{
                 return $this->question_1;
             case 'question_2':
                 return $this->question_2;
+            case 'registration':
+                return $this->registration;
+            case 'conditions':
+                return $this->conditions;
+            case 'marketing':
+                return $this->marketing;
             default:
                 echo "Error: " . $prop . " bestaat niet.";
         }
@@ -97,9 +115,10 @@ class Player{
     public function insertPlayer(){
         $db = Db::getInstance();
 
-        $stmt = $db->prepare("INSERT INTO players (mail, event) VALUES(:mail, :event)");
+        $stmt = $db->prepare("INSERT INTO players (mail, event, registration) VALUES(:mail, :event, :registration)");
         $stmt->bindParam(':mail', $this->mail);
         $stmt->bindParam(':event', $this->event);
+        $stmt->bindParam(':registration', $this->registration);
 
         if($stmt->execute()){
             $db = null;
@@ -138,7 +157,21 @@ class Player{
         $db = null;
 
         return $result["lastname"];
+    }
 
+    //get expiration date
+    public function expirationDate($mail){
+        $db = Db::getInstance();
+
+        $stmt = $db->prepare("SELECT registration FROM players WHERE mail = :mail");
+        $stmt->bindParam(':mail', $mail);
+
+        $stmt->execute();
+        $result = $stmt->fetch();
+
+        $db = null;
+
+        return $result["registration"];
     }
 
     //update after participation
@@ -155,7 +188,9 @@ class Player{
                 phone = :phone, 
                 birthday = :birthday, 
                 question_1 = :question_1, 
-                question_2 = :question_2 WHERE mail = :mail");
+                question_2 = :question_2,
+                conditions = :conditions,
+                marketing = :marketing WHERE mail = :mail");
 
         $stmt->bindParam(':lastname', $this->lastname);
         $stmt->bindParam(':firstname', $this->firstname);
@@ -168,6 +203,8 @@ class Player{
         $stmt->bindParam(':question_1', $this->question_1);
         $stmt->bindParam(':question_2', $this->question_2);
         $stmt->bindParam(':mail', $mail);
+        $stmt->bindParam(':conditions', $this->conditions);
+        $stmt->bindParam(':marketing', $this->marketing);
 
         if($stmt->execute()){
             $db = null;

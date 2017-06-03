@@ -13,8 +13,8 @@
 
 .error {
   color: #f5812c;
-  font-size: 12px;
-  margin-left: 15px; }
+  margin-left: 15px;
+  margin-bottom: 15px; }
 
 html {
   -webkit-font-smoothing: antialiased; }
@@ -49,21 +49,19 @@ nav {
   padding-left: 23px;
   padding-right: 23px; }
 
-.intro {
-  margin-bottom: 35px; }
-
 h1 {
   font-size: 32px;
   line-height: 50px;
   color: #2d77bd;
-  margin-bottom: 23px;
   font-weight: 400; }
 
 h2 {
   font-size: 20px;
   line-height: 30px;
   font-weight: 400;
-  color: #652b7c; }
+  color: #652b7c;
+  margin-top: 35px;
+  margin-bottom: 35px; }
 
 table {
   margin-bottom: 35px;
@@ -77,8 +75,14 @@ td {
 .form_game_input_q {
   margin-bottom: 15px; }
 
+#required {
+  font-size: 15px;
+  padding-bottom: 23px;
+  font-style: italic; }
+
 select,
 input[type="text"],
+input[type="date"],
 input[type="submit"] {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -99,8 +103,16 @@ input[type="submit"] {
 #form_game_input_submit {
   margin-top: 35px; }
 
+.form_game_checkbox {
+  margin-bottom: 15px; }
+  .form_game_checkbox input, .form_game_checkbox label {
+    display: inline-block; }
+  .form_game_checkbox label {
+    margin-left: 15px; }
+
 select:focus,
 input[type="text"]:focus,
+input[type="date"]:focus,
 input[type="submit"]:focus {
   outline: none; }
 
@@ -117,5 +129,8 @@ input[type="submit"] {
 
 input[type="text"], input[type="date"], label {
   display: block; }
+
+input[type="submit"]:disabled {
+  background: #dddddd; }
 
 /*# sourceMappingURL=game.css.map */

@@ -12,10 +12,14 @@ $recipient = strip_tags(trim($_POST["form_registration_input_email"]));
 //get event
 $event = strip_tags(trim($_POST["form_registration_input_event"]));
 
+//get day and add ten days
+$date = strtotime("+10 day");
+
 //create player
 $player = new Player();
 $player->mail = $recipient;
 $player->event = $event;
+$player->registration = date('Y-m-d', $date);
 
 //used to check if mail is already in db
 $check = new Player();
@@ -28,8 +32,9 @@ if(!$check->exist($player->mail)){
         $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'gFfSEwGJ3MsWv7YP');
 
         //send mail
-        $data = array("id" => 2,
-            "to" => $recipient
+        $data = array("id" => 5,
+            "to" => $recipient,
+            "attr" => array("EVENT"=>$player->event,"DATE"=> date('d M  Y', $date))
         );
 
         //dump response
@@ -41,7 +46,7 @@ if(!$check->exist($player->mail)){
         }else{
             $response = array(
                 'result'=> true,
-                'message'=>  "Bericht succesvol verzonden."
+                'message'=>  "Woehoew, bericht succesvol verzonden."
             );
         }
     }else{
@@ -53,7 +58,7 @@ if(!$check->exist($player->mail)){
 }else{
     $response = array(
         'result'=> false,
-        'message'=>  "Dit mailadres werd reeds geregistreerd."
+        'message'=>  "Dit e-mailadres werd reeds geregistreerd."
     );
 }
 

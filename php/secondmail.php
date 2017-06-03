@@ -15,64 +15,65 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //session unset
     session_unset();
 
-    if(empty($_POST['form_game_input_name'])){
-        $_SESSION['errors']['form_game_input_name'] = "Naam is verplicht";
-    }
+    if ($player->exist(strip_tags(trim($_POST["form_game_input_mail"])))){
+        //get date and expiration date
+        $date = date("Y-m-d");
+        $expiration = $player->expirationDate(strip_tags(trim($_POST["form_game_input_mail"])));
 
-    if(empty($_POST['form_game_input_firstname'])){
-        $_SESSION['errors']['form_game_input_firstname'] = "Voornaam is verplicht";
-    }
+        //check if player can still participate
+        if($expiration > $date){
+            if (!isset($_POST['form_game_input_conditions'])) {
+                $_SESSION['errors']['form_game_input_conditions'] = "Je moet onze voorwaarden accepteren als je wil kunnen winnen";
+            }
 
-    if(empty($_POST['form_game_input_street'])){
-        $_SESSION['errors']['form_game_input_street'] = "Straat is verplicht";
-    }
+            if (empty($_POST['form_game_input_name'])) {
+                $_SESSION['errors']['form_game_input_name'] = "Naam is verplicht";
+            }
 
-    if(empty($_POST['form_game_input_number'])){
-        $_SESSION['errors']['form_game_input_number'] = "Huisnummer is verplicht";
-    }
+            if (empty($_POST['form_game_input_firstname'])) {
+                $_SESSION['errors']['form_game_input_firstname'] = "Voornaam is verplicht";
+            }
 
-    if(strlen($_POST['form_game_input_number']) > 10){
-        $_SESSION['errors']['form_game_input_number'] = "Huisnummer is te lang";
-    }
+            if (strlen($_POST['form_game_input_number']) > 10) {
+                $_SESSION['errors']['form_game_input_number'] = "Huisnummer is te lang";
+            }
 
-    if(empty($_POST['form_game_input_postalcode'])){
-        $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is verplicht";
-    }
+            if (empty($_POST['form_game_input_postalcode'])) {
+                $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is verplicht";
+            }
 
-    if(strlen($_POST['form_game_input_postalcode']) > 4){
-        $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is te lang";
-    }
+            if (strlen($_POST['form_game_input_postalcode']) > 4) {
+                $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is te lang";
+            }
 
-    if(empty($_POST['form_game_input_city'])){
-        $_SESSION['errors']['form_game_input_city'] = "Stad of gemeente is verplicht";
-    }
+            if (empty($_POST['form_game_input_phone'])) {
+                $_SESSION['errors']['form_game_input_phone'] = "Telefoon is verplicht";
+            }
 
-    if(empty($_POST['form_game_input_phone'])){
-        $_SESSION['errors']['form_game_input_phone'] = "Telefoon is verplicht";
-    }
+            if (!filter_var($_POST['form_game_input_mail'], FILTER_VALIDATE_EMAIL)) {
+                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres heeft een onjuist formaat";
+            }
 
-    if(!filter_var($_POST['form_game_input_mail'], FILTER_VALIDATE_EMAIL)){
-        $_SESSION['errors']['form_game_input_mail'] = "E-mailadres heeft een onjuist formaat";
-    }
+            if (!$player->exist(strip_tags(trim($_POST["form_game_input_mail"])))) {
+                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres is ons niet bekend, jammer";
+            }
 
-    if(!$player->exist(strip_tags(trim($_POST["form_game_input_mail"])))){
+            if (!empty($player->participated(strip_tags(trim($_POST["form_game_input_mail"]))))) {
+                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres nam reeds deel, be patient";
+            }
+
+            if (empty($_POST['form_game_input_q1'])) {
+                $_SESSION['errors']['form_game_input_q1'] = "Antwoorden is verplicht om te kunnen winnen";
+            }
+
+            if (empty($_POST['form_game_input_q2'])) {
+                $_SESSION['errors']['form_game_input_q2'] = "Antwoorden is verplicht om te kunnen winnen";
+            }
+        }else{
+           $_SESSION['errors']['form_game_input_date'] = "Jammer, de wedstrijd is reeds afgelopen.";
+        }
+    }else{
         $_SESSION['errors']['form_game_input_mail'] = "E-mailadres is ons niet bekend, jammer";
-    }
-
-    if(!empty($player->participated(strip_tags(trim($_POST["form_game_input_mail"]))))){
-        $_SESSION['errors']['form_game_input_mail'] = "E-mailadres nam reeds deel, be patient";
-    }
-
-    if(empty($_POST['form_game_input_birthdate'])){
-        $_SESSION['errors']['form_game_input_birthdate'] = "Geboortedatum is verplicht";
-    }
-
-    if(empty($_POST['form_game_input_q1'])){
-        $_SESSION['errors']['form_game_input_q1'] = "Antwoorden is verplicht om te kunnen winnen";
-    }
-
-    if(empty($_POST['form_game_input_q2'])){
-        $_SESSION['errors']['form_game_input_q2'] = "Antwoorden is verplicht om te kunnen winnen";
     }
 
     if(count($_SESSION['errors']) > 0){
@@ -85,7 +86,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         foreach ($_SESSION['errors'] as $key => $value) {
             ${'span_' . $key} = $value;
         }
-
     }else{
         //get recipient mailadress
         $recipient = strip_tags(trim($_POST["form_game_input_mail"]));
@@ -101,6 +101,8 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $player->birthday = strip_tags(trim($_POST["form_game_input_birthdate"]));
         $player->question_1 = strip_tags(trim($_POST["form_game_input_q1"]));
         $player->question_2 = strip_tags(trim($_POST["form_game_input_q2"]));
+        $player->conditions = strip_tags(trim($_POST["form_game_input_conditions"]));
+        $player->marketing = strip_tags(trim($_POST["form_game_input_marketing"]));
 
         //update player in db
         $player->updatePlayer($recipient);
@@ -109,7 +111,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $mailin = new Mailin('https://api.sendinblue.com/v2.0', 'gFfSEwGJ3MsWv7YP');
 
         //send mail
-        $data = array("id" => 3,
+        $data = array("id" => 6,
             "to" => $recipient
         );
 

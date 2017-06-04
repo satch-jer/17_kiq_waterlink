@@ -50,6 +50,7 @@ table{
 }
 
 td{
+  vertical-align: top;
   width: 50%;
 
   input[type="text"]{
@@ -57,15 +58,14 @@ td{
   }
 }
 
-
 .form_game_input_q{
   margin-bottom: $s;
 }
 
 #required{
   font-size: 15px;
-  padding-bottom: $m;
   font-style: italic;
+  margin-top: $m;
 }
 
 select,

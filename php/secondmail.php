@@ -15,62 +15,73 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     //session unset
     session_unset();
 
+    //check if player exist
     if ($player->exist(strip_tags(trim($_POST["form_game_input_mail"])))){
-        //get date and expiration date
-        $date = date("Y-m-d");
-        $expiration = $player->expirationDate(strip_tags(trim($_POST["form_game_input_mail"])));
+        //check if player already participated
+        if(empty($player->participated(strip_tags(trim($_POST["form_game_input_mail"]))))){
 
-        //check if player can still participate
-        if($expiration > $date){
-            if (!isset($_POST['form_game_input_conditions'])) {
-                $_SESSION['errors']['form_game_input_conditions'] = "Je moet onze voorwaarden accepteren als je wil kunnen winnen";
-            }
+            //get date and expiration date
+            $date = date("Y-m-d");
+            $expiration = $player->expirationDate(strip_tags(trim($_POST["form_game_input_mail"])));
 
-            if (empty($_POST['form_game_input_name'])) {
-                $_SESSION['errors']['form_game_input_name'] = "Naam is verplicht";
-            }
+            //check if player can still participate
+            if($expiration > $date){
+                if (!isset($_POST['form_game_input_conditions'])) {
+                    $_SESSION['errors']['form_game_input_conditions'] = "Je moet onze voorwaarden accepteren als je wil kunnen winnen";
+                }
 
-            if (empty($_POST['form_game_input_firstname'])) {
-                $_SESSION['errors']['form_game_input_firstname'] = "Voornaam is verplicht";
-            }
+                if (empty($_POST['form_game_input_name'])) {
+                    $_SESSION['errors']['form_game_input_name'] = "Naam is verplicht";
+                }
 
-            if (strlen($_POST['form_game_input_number']) > 10) {
-                $_SESSION['errors']['form_game_input_number'] = "Huisnummer is te lang";
-            }
+                if (empty($_POST['form_game_input_firstname'])) {
+                    $_SESSION['errors']['form_game_input_firstname'] = "Voornaam is verplicht";
+                }
 
-            if (empty($_POST['form_game_input_postalcode'])) {
-                $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is verplicht";
-            }
+                if (strlen($_POST['form_game_input_number']) > 10) {
+                    $_SESSION['errors']['form_game_input_number'] = "Huisnummer is te lang";
+                }
 
-            if (strlen($_POST['form_game_input_postalcode']) > 4) {
-                $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is te lang";
-            }
+                if (empty($_POST['form_game_input_postalcode'])) {
+                    $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is verplicht";
+                }
 
-            if (empty($_POST['form_game_input_phone'])) {
-                $_SESSION['errors']['form_game_input_phone'] = "Telefoon is verplicht";
-            }
+                if (strlen($_POST['form_game_input_postalcode']) > 4) {
+                    $_SESSION['errors']['form_game_input_postalcode'] = "Postcode is te lang";
+                }
 
-            if (!filter_var($_POST['form_game_input_mail'], FILTER_VALIDATE_EMAIL)) {
-                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres heeft een onjuist formaat";
-            }
+                if (empty($_POST['form_game_input_phone']) || !is_numeric($_POST['form_game_input_phone'])) {
+                    $_SESSION['errors']['form_game_input_phone'] = "Telefoonnummer is verplicht en mag enkel cijfers bevatten";
+                }
 
-            if (!$player->exist(strip_tags(trim($_POST["form_game_input_mail"])))) {
-                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres is ons niet bekend, jammer";
-            }
+                if (strlen($_POST['form_game_input_phone']) > 10) {
+                    $_SESSION['errors']['form_game_input_phone'] = "Telefoonnummer is te lang";
+                }
 
-            if (!empty($player->participated(strip_tags(trim($_POST["form_game_input_mail"]))))) {
-                $_SESSION['errors']['form_game_input_mail'] = "E-mailadres nam reeds deel, be patient";
-            }
+                if (strlen($_POST['form_game_input_phone']) < 8) {
+                    $_SESSION['errors']['form_game_input_phone'] = "Telefoonnummer is te kort";
+                }
 
-            if (empty($_POST['form_game_input_q1'])) {
-                $_SESSION['errors']['form_game_input_q1'] = "Antwoorden is verplicht om te kunnen winnen";
-            }
+                if (!filter_var($_POST['form_game_input_mail'], FILTER_VALIDATE_EMAIL)) {
+                    $_SESSION['errors']['form_game_input_mail'] = "E-mailadres heeft een onjuist formaat";
+                }
 
-            if (empty($_POST['form_game_input_q2'])) {
-                $_SESSION['errors']['form_game_input_q2'] = "Antwoorden is verplicht om te kunnen winnen";
+                if (empty($_POST['form_game_input_q1'])) {
+                    $_SESSION['errors']['form_game_input_q1'] = "Je moet wel antwoorden om te kunnen winnen";
+                }
+
+                if (empty($_POST['form_game_input_q2'])) {
+                    $_SESSION['errors']['form_game_input_q2'] = "Je moet wel antwoorden om te kunnen winnen";
+                }
+
+                if (!is_numeric($_POST['form_game_input_q2'])) {
+                    $_SESSION['errors']['form_game_input_q2'] = "Dit antwoord moet een getal zijn!";
+                }
+            }else{
+                $_SESSION['errors']['form_game_input_date'] = "Jammer, de wedstrijd is reeds afgelopen";
             }
         }else{
-           $_SESSION['errors']['form_game_input_date'] = "Jammer, de wedstrijd is reeds afgelopen.";
+            $_SESSION['errors']['form_game_input_mail'] = "E-mailadres nam reeds deel, nog even geduld!";
         }
     }else{
         $_SESSION['errors']['form_game_input_mail'] = "E-mailadres is ons niet bekend, jammer";

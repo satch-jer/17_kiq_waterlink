@@ -1,19 +1,22 @@
 var data = {};
+var $form_game_input_submit = $('#form_game_input_submit');
+var $form_game_confirm = $("#form_game_confirm");
 
-$('#form_game_input_submit').prop("disabled", true);
+//disable submit button because general conditions are not accepted
+$form_game_input_submit.prop("disabled", true);
 
 $(document).ready(function(){
 
     //submit button only enabled when conditions are accepted
     $('#form_game_input_conditions').click(function(){
         if($(this).is(':checked')){
-            $('#form_game_input_submit').prop("disabled", false);
+            $form_game_input_submit.prop("disabled", false);
         }else{
-            $('#form_game_input_submit').prop("disabled", true);
+            $form_game_input_submit.prop("disabled", true);
         }
     });
 
-    $('#form_game_input_submit').on("click", function(){
+    $form_game_input_submit.on("click", function(){
         resetErrors();
 
         $.each($('form input, form select'), function(i, v){
@@ -30,7 +33,8 @@ $(document).ready(function(){
             success: function(resp){
                 if(resp === true){
                     $('form')[0].reset();
-                    $("#form_game_confirm").addClass('success').text('Uw deelname werd bevestigd, bedankt!');
+                    $form_game_confirm.addClass('success').text('Uw deelname werd bevestigd, bedankt!');
+                    $form_game_input_submit.prop("disabled", true);
                     return false;
                 }else{
                     $.each(resp, function(i,v){
@@ -43,7 +47,7 @@ $(document).ready(function(){
                 return false;
             },
             error: function(){
-                $("#form_game_confirm").text('Er ging iets mis met uw registratie, probeer later nog eens!');
+                $form_game_confirm.text('Er ging iets mis met uw registratie, probeer later nog eens!');
             }
         });
         return false;

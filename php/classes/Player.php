@@ -5,7 +5,6 @@ include_once "Db.php";
 class Player{
 
     private $mail;
-    private $event;
     private $lastname;
     private $firstname;
     private $street;
@@ -16,7 +15,7 @@ class Player{
     private $birthday;
     private $question_1;
     private $question_2;
-    private $registration;
+    private $expiration;
     private $conditions;
     private $marketing;
 
@@ -25,9 +24,6 @@ class Player{
         switch($prop){
             case 'mail':
                 $this->mail = $val;
-                break;
-            case 'event':
-                $this->event = $val;
                 break;
             case 'lastname':
                 $this->lastname = $val;
@@ -59,8 +55,8 @@ class Player{
             case 'question_2':
                 $this->question_2 = $val;
                 break;
-            case 'registration':
-                $this->registration = $val;
+            case 'expiration':
+                $this->expiration = $val;
                 break;
             case 'conditions':
                 $this->conditions = $val;
@@ -78,8 +74,6 @@ class Player{
         switch($prop) {
             case 'mail':
                 return $this->mail;
-            case 'event':
-                return $this->event;
             case 'lastname':
                 return $this->lastname;
             case 'firstname':
@@ -100,8 +94,8 @@ class Player{
                 return $this->question_1;
             case 'question_2':
                 return $this->question_2;
-            case 'registration':
-                return $this->registration;
+            case 'expiration':
+                return $this->expiration;
             case 'conditions':
                 return $this->conditions;
             case 'marketing':
@@ -115,16 +109,13 @@ class Player{
     public function insertPlayer(){
         $db = Db::getInstance();
 
-        $stmt = $db->prepare("INSERT INTO players (mail, event, registration) VALUES(:mail, :event, :registration)");
+        $stmt = $db->prepare("INSERT INTO players (mail, expiration) VALUES(:mail, :expiration)");
         $stmt->bindParam(':mail', $this->mail);
-        $stmt->bindParam(':event', $this->event);
-        $stmt->bindParam(':registration', $this->registration);
+        $stmt->bindParam(':expiration', $this->expiration);
 
         if($stmt->execute()){
-            $db = null;
             return true;
         }else{
-            $db = null;
             return false;
         }
     }
@@ -154,65 +145,6 @@ class Player{
         $stmt->execute();
         $result = $stmt->fetch();
 
-        $db = null;
-
         return $result["lastname"];
     }
-
-    //get expiration date
-    public function expirationDate($mail){
-        $db = Db::getInstance();
-
-        $stmt = $db->prepare("SELECT registration FROM players WHERE mail = :mail");
-        $stmt->bindParam(':mail', $mail);
-
-        $stmt->execute();
-        $result = $stmt->fetch();
-
-        $db = null;
-
-        return $result["registration"];
-    }
-
-    //update after participation
-    public function updatePlayer($mail){
-        $db = Db::getInstance();
-
-        $stmt = $db->prepare("UPDATE players SET 
-                lastname = :lastname, 
-                firstname = :firstname, 
-                street = :street, 
-                housenumber = :housenumber, 
-                postal = :postal, 
-                city = :city, 
-                phone = :phone, 
-                birthday = :birthday, 
-                question_1 = :question_1, 
-                question_2 = :question_2,
-                conditions = :conditions,
-                marketing = :marketing WHERE mail = :mail");
-
-        $stmt->bindParam(':lastname', $this->lastname);
-        $stmt->bindParam(':firstname', $this->firstname);
-        $stmt->bindParam(':street', $this->street);
-        $stmt->bindParam(':housenumber', $this->housenumber);
-        $stmt->bindParam(':postal', $this->postal);
-        $stmt->bindParam(':city', $this->city);
-        $stmt->bindParam(':phone', $this->phone);
-        $stmt->bindParam(':birthday', $this->birthday);
-        $stmt->bindParam(':question_1', $this->question_1);
-        $stmt->bindParam(':question_2', $this->question_2);
-        $stmt->bindParam(':mail', $mail);
-        $stmt->bindParam(':conditions', $this->conditions);
-        $stmt->bindParam(':marketing', $this->marketing);
-
-        if($stmt->execute()){
-            $db = null;
-            return true;
-        }else{
-            $db = null;
-            return false;
-        }
-    }
-
 }

@@ -1,0 +1,271 @@
+//===fonts===
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700');
+
+//===colors===
+
+$concrete: #e5e5e5;
+$night: #202020;
+$orange: #f5812c;
+$smurf: #2d77bd;
+$sky: #cceaed;
+$ratten: #652b7c;
+
+//===values===
+
+$xs: 5px;
+$s: 15px;
+$m: 23px;
+$l: 35px;
+$xl: 50px;
+$xxl: 75px;
+$xxxl: 100px;
+
+//===frame===
+
+html{
+  //make sure fonts are sharp!
+  -webkit-font-smoothing: antialiased;
+
+  //height 100%
+  height: 100%;
+  overflow: hidden;
+}
+
+body{
+  //font default
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size:62.5%;
+  font-weight: 400;
+  color: $night;
+
+  //div elements have padding and border included in total width & height
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+
+  //overflow hidden
+  overflow-x:hidden;
+
+  //height 100%
+  min-height: 100%;
+  overflow: hidden;
+}
+
+//===image zone===
+#speelwin{
+  height: 250px;
+  text-align: center;
+  margin-top: 125px;
+
+  img{
+    height: 250px;
+  }
+}
+
+#kraantje{
+  height: 150px;
+  text-align: center;
+  margin-top: $xxxl;
+
+  img{
+    height: 150px;
+  }
+}
+
+//===form zone===
+#logo{
+  height: 75px;
+  display: block;
+  margin: $xl auto;
+}
+
+#intro{
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: $xl;
+}
+
+.screenreader{
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+h3{
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: $smurf none repeat scroll 0 0;
+  color: white;
+  padding: $m $m;
+  border-radius: $xs $xs 0 0;
+  margin: auto;
+  text-shadow: none;
+  text-align:left
+}
+
+.contentform{
+  background-color: white;
+  border: 1px solid $smurf;
+  padding: $l;
+}
+
+.form-control {
+  //remove default ios styling
+  -webkit-appearance: none;
+
+  height: 45px;
+}
+
+#checkboxes{
+  margin-left: $xs;
+}
+
+label{
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: $m;
+
+  span{
+    color: red;
+  }
+}
+
+//remove box shadow from input fields
+.form-control{
+  box-shadow: none;
+}
+
+//overrride default focus of input field
+.form-control:focus {
+  /* remove for ios */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  border-color: $sky;
+  box-shadow: none;
+}
+
+//custom checkboxes
+input[type=checkbox]{
+  -webkit-appearance: none;
+  background-color: white;
+  border: 1px solid $concrete;
+  box-shadow: none;
+  padding: 9px;
+  border-radius: $xs;
+  display: inline-block;
+  position: relative;
+}
+
+input[type=checkbox]:active, input[type=checkbox]:checked:active {
+  box-shadow: none;
+}
+
+input[type=checkbox]:checked {
+  background-color: white;
+  border: 1px solid $concrete;
+  box-shadow: none;
+  color: $night;
+}
+
+input[type=checkbox]:checked:after {
+  content: '\2714';
+  font-size: 1.4rem;
+  position: absolute;
+  top: 0;
+  left: 3px;
+  color: $night;
+}
+
+input[type=checkbox]:focus{
+  outline: none;
+}
+
+#buttons{
+  text-align: center;
+  margin-bottom: $xxl;
+}
+
+.btn-default{
+  margin-top: $l;
+  background-color: $orange;
+  color: white;
+  font-weight: 700;
+  padding: $s $m;
+  border: 2px solid $orange;
+}
+
+.btn-default:hover{
+  background-color: transparent;
+  color: $orange;
+  border: 2px solid $orange;
+}
+
+.btn-default:focus{
+  outline: none;
+}
+
+#form_unsynced{
+  text-align: center;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+
+  a{
+    font-size: 1.6rem;
+    color: $night;
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  h2{
+    font-size: inherit;
+  }
+
+  ul{
+    list-style: none;
+    padding-left: 0;
+    display: none;
+    font-weight: 400;
+  }
+}
+
+#form_registration_success_message{
+  display: block;
+  color: limegreen;
+  font-size: 1.6rem;
+  padding-top: $s;
+}
+
+#form_registration_error_message{
+  //more margin inside checkboxes div
+  //see styling there
+  display: block;
+  color: $orange;
+  font-size: 1.6rem;
+  padding-top: $s;
+}
+
+//===borders at bottom===
+#content_borders{
+  position: absolute;
+  bottom: 10px;
+  height: 180px;
+  width: 100%;
+
+  .content_borders{
+    width: 100%;
+    height: 10px;
+    margin-bottom: 10px;
+  }
+  .blue{
+    background-color: $smurf;
+  }
+  .orange{
+    background-color: $orange;
+  }
+}

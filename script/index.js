@@ -4,5 +4,4 @@ $(function() {
     $(document).click(function(){
         window.location.href = "public/ipad.php";
     })
-
 });

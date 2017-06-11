@@ -1,7 +1,6 @@
 $(function() {
     //get the form and messages div.
     var $form = $('#form_registration');
-    var $message = $('#form_registration_message');
     var $form_unsynced_link = $("#form_unsynced_show");
     var $form_unsynced_list = $("#form_unsynced_list");
     var $form_mail = $('#form_registration_input_email');
@@ -9,22 +8,29 @@ $(function() {
     //delay for redirect
     var delay = 5000;
 
+    //refresh after 10 seconds no activitity
+    (function(seconds) {
+        var refresh,
+            intvrefresh = function() {
+                clearInterval(refresh);
+                refresh = setTimeout(function() {
+                    window.location.href = "../index.php";
+                }, seconds * 1000);
+            };
+
+        $(document).on('keypress click', function() { intvrefresh() });
+        intvrefresh();
+    }(15)); // define here seconds
+
     //add localstorage elements
     for(var i in localStorage){
         $form_unsynced_list.append("<li><a id='" + localStorage[i] +"' class='form_unsynced_list_item ' href='#'>" + localStorage[i] + "</a></li>");
     }
 
-    //set container to 100% window height
-    $('.container').css('height', $(window).height());
-
-    //also on resize
-    $(window).resize(function(){
-        $('.container').css('height', $(window).height());
-    });
-
     //remove status text
     $('body').on('click', $form_mail, function(e){
-       $message.text("");
+        $("#form_registration_success_message").text("");
+        $("#form_registration_error_message").text("");
     });
 
     //form submit
@@ -34,39 +40,30 @@ $(function() {
         if($('#form_registration_input_conditions').is(":checked")){
             if(validEmail($form_mail.val())){
                 if(navigator.onLine){
-                    //serialize (key-value) the form data
-                    var formdata = $($form).serialize();
-
                     //submit form with ajax
                     $.ajax({
+                        dataType: 'json',
                         type: 'POST',
-                        url: '../php/firstmail.php',
-                        data: formdata,
-                        dataType: 'json'
-                    }).done(function(response){
-                        if(response["result"]){
-                            $message.removeClass('error');
-                            $message.addClass('success');
+                        url: '../php/process.php',
+                        data: $(this).serialize(),
+                        encode: true
+                    }).done(function(data){
+                        if(data == 'true'){
+                            //reset form
+                            $('form')[0].reset();
+
+                            //show feedback
+                            $("#form_registration_success_message").text("Woehoew, deelname voltooid!");
                         }else{
-                            $message.removeClass('success');
-                            $message.addClass('error');
+                            //set errormessages
+                            $.each(data, function(i,v){
+                                $("#form_registration_error_message").text(v);
+                            });
                         }
-
-                        $message.text(response["message"]);
-
-                        //clear form after submission
-                        $form.each(function(){
-                            this.reset();
-                        });
-
-                        //redirect to start page
-                        setTimeout(function(){
-                            window.location.href = "../index.php";
-                        }, delay);
                     });
                 } else{
                     if (typeof(Storage) !== "undefined") {
-                        // localstorage
+                        // local storage
 
                         //get input email
                         var email = $("#form_registration_input_email").val();
@@ -76,9 +73,7 @@ $(function() {
                         localStorage.setItem(key, email);
 
                         //mail saved in local storage because offline
-                        $message.removeClass('error');
-                        $message.addClass('success');
-                        $message.text("Je bent offline, dit e-mailadres werd lokaal opgeslagen. Niet vergeten te syncen!");
+                        $("#form_registration_success_message").text("Je bent offline, dit e-mailadres werd lokaal opgeslagen. Niet vergeten te syncen!");
 
                         //append item to list
                         $form_unsynced_list.append("<li><a id='" + localStorage.key(key) +"' class='form_unsynced_list_item ' href='#'>" + email + "</a></li>");
@@ -87,26 +82,22 @@ $(function() {
                         $form.each(function(){
                             this.reset();
                         });
-
-                        //redirect to start page
-                        setTimeout(function(){
-                            window.location.href = "../index.php";
-                        }, delay);
                     } else {
                         // sorry! no web storage support..
                     }
                 }
+
+                //redirect to start page
+                setTimeout(function(){
+                    window.location.href = "../index.php";
+                }, delay);
             }else{
                 //set error message
-                $message.removeClass('success');
-                $message.addClass('error');
-                $message.text('Gelieve een geldig e-mailadres in te geven');
+                $("#form_registration_error_message").text('Gelieve een geldig e-mailadres in te geven');
             }
         }else{
             //set error message
-            $message.removeClass('success');
-            $message.addClass('error');
-            $message.text('Gelieve de algemene voorwaarden te accepteren');
+            $("#form_registration_error_message").text('Gelieve de algemene voorwaarden te accepteren');
         }
     });
 

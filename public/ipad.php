@@ -1,68 +1,92 @@
 <?php
 
-    include_once "../php/classes/Event.php";
-
-    $event = new Event();
+include('../php/process.php');
 
 ?>
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="author" content="Water-Link">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" type="text/css" href="../css/normalize.css">
-    <link rel="stylesheet" type="text/css" href="../css/ipad.css">
-    <title>Registratie | Water-link</title>
-</head>
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css">
+    <!-- bootstrap support-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styling.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <title>Registreer je nu | Water-Link</title>
 
+    <link rel="shortcut icon" href="../assets/icons/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="57x57" href="../assets/icons/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="../assets/icons/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon" sizes="76x76" href="../assets/icons/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="../assets/icons/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon" sizes="120x120" href="../assets/icons/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="../assets/icons/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="../assets/icons/apple-touch-icon-152x152.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="../assets/icons/apple-touch-icon-180x180.png" />
+</head>
 
 <body>
 
-<main class="container" role="main">
-    <div class="container_cell">
-        <div class="container_content">
+    <img id="logo" src="../assets/speelwin.svg" alt="Speel en win met Water-Link">
 
-            <img src="../assets/logo.png" alt="logo water-link" id="logo">
+    <section>
+        <div class="container">
+            <h3>Neem nu deel:</h3>
 
-            <div id="form_flow">
-                <p>Laat hier jouw e-mailadres achter en wij sturen jouw de link om deel te nemen aan de Water-Link wedstrijd! Veel succes!</p>
-            </div>
+            <div class="contentform">
+                <form id="form_registration" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" novalidate>
+                    <div class="row">
+                        <div class="form-group col-sm-12">
+                            <label for="form_registration_input_email">Laat hier jouw e-mailadres achter en wij sturen jouw de link om deel te nemen aan de Water-Link wedstrijd! Veel succes! <span>*</span></label>
+                            <input class="form-control" name="form_registration_input_email" id="form_registration_input_email" placeholder="E-mail" autocomplete="off" value="<?php echo $email;?>">
+                        </div>
+                    </div>
 
-            <form id="form_registration" novalidate>
-                <label class="screenreader" for="form_registration_input_event">event:</label>
-                <select name="form_registration_input_event" id="form_registration_input_event">
-                    <?php
-                        foreach ($event->getAll() as $value){
-                            //extract values from array
-                            extract($value);
+                    <div class="row" id="checkboxes">
+                        <div class="checkbox form-group col-sm-12" id="form_registration_div_conditions">
+                            <input type="checkbox" name="form_registration_input_conditions" id="form_registration_input_conditions" >
+                            <label for="form_registration_input_conditions">Ik aanvaard het gebruik van mijn e-mailadres enkel voor deze wedstrijd.</label>
+                        </div>
+                    </div>
 
-                            //show every option as option in select
-                            echo '<option>' . $name . '</option>';
-                        }
-                    ?>
-                </select>
-                <label class="screenreader" for="form_registration_input_email">email:</label>
-                <input type="text" name="form_registration_input_email" id="form_registration_input_email" placeholder="E-mail" autocomplete="off">
-                <div id="form_registration_div_conditions">
-                    <input type="checkbox" name="form_registration_input_conditions" id="form_registration_input_conditions" >
-                    <label for="form_registration_input_conditions">Ik aanvaard het gebruik van mijn e-mailadres enkel voor deze wedstrijd.</label>
-                </div>
-                <input type="submit" name="submit" id="form_registration_input_submit" value="Speel mee">
+                    <div class="row">
+                        <div class="form-group col-sm-12" id="buttons">
+                            <input type="submit" name="submit" id="form_registration_input_submit" class="btn btn-default" value="Speel mee">
+                            <span id="form_registration_error_message"><?= $feedback_error ?></span>
+                            <span id="form_registration_success_message"><?= $feedback_success ?></span>
+                        </div>
+                    </div>
 
-                <p id="form_registration_message"></p>
-            </form>
-
-            <div id="form_unsynced">
-                <h2><a href="#" id="form_unsynced_show">Niet-gesynchroniseerde adressen</a></h2>
-                <ul id="form_unsynced_list"></ul>
+                    <div id="form_unsynced">
+                        <a href="#" id="form_unsynced_show">[ Niet-gesynchroniseerde adressen ]</a>
+                        <ul id="form_unsynced_list"></ul>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-</main>
+    </section>
 
+    <section>
+        <div id="content_borders">
+            <div class="content_borders blue"></div>
+            <div class="content_borders orange"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+            <div class="content_borders blue"></div>
+        </div>
+    </section>
 
 <!-- js links -->
 <script src="../script/lib/jquery-3.2.1.min.js"></script>

@@ -200,8 +200,8 @@ input[type=checkbox]:focus{
 }
 
 .btn-default:hover{
-  background-color: transparent;
-  color: $orange;
+  background-color: $orange;
+  color: white;
   border: 2px solid $orange;
 }
 
@@ -211,7 +211,7 @@ input[type=checkbox]:focus{
 
 #form_unsynced{
   text-align: center;
-  width: 40%;
+  width: 75%;
   margin-left: auto;
   margin-right: auto;
 
@@ -230,7 +230,10 @@ input[type=checkbox]:focus{
     list-style: none;
     padding-left: 0;
     display: none;
-    font-weight: 400;
+    li{
+      font-weight: 400 !important;
+
+    }
   }
 }
 

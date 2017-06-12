@@ -8,6 +8,11 @@ $(function() {
     //delay for redirect
     var delay = 5000;
 
+    //fill array with localstorage addresses
+    var storedData = localStorage.getItem('emails');
+    var emails = [];
+    emails = JSON.parse(storedData);
+
     //refresh after 10 seconds no activitity
     (function(seconds) {
         var refresh,
@@ -23,8 +28,10 @@ $(function() {
     }(15)); // define here seconds
 
     //add localstorage elements
-    for(var i in localStorage){
-        $form_unsynced_list.append("<li><a id='" + localStorage[i] +"' class='form_unsynced_list_item ' href='#'>" + localStorage[i] + "</a></li>");
+    if (emails != null) {
+        for(var i = 0; i<emails.length; i++){
+            $form_unsynced_list.append("<li><a id='" + emails[i] +"' class='form_unsynced_list_item ' href='#'>" + emails[i] + "</a></li>");
+        }
     }
 
     //remove status text
@@ -61,22 +68,34 @@ $(function() {
                             });
                         }
                     });
+
+                    //redirect to start page
+                    setTimeout(function(){
+                        window.location.href = "../index.php";
+                    }, delay);
+
                 } else{
                     if (typeof(Storage) !== "undefined") {
                         // local storage
 
                         //get input email
                         var email = $("#form_registration_input_email").val();
-                        var key = email;
+
+                        //add to array
+                        if(emails !== null){
+                            emails.push(email);
+                        }else{
+                            emails = [email];
+                        }
 
                         //set mail in local storage
-                        localStorage.setItem(key, email);
+                        localStorage.setItem("emails", JSON.stringify(emails));
 
                         //mail saved in local storage because offline
                         $("#form_registration_success_message").text("Je bent offline, dit e-mailadres werd lokaal opgeslagen. Niet vergeten te syncen!");
 
                         //append item to list
-                        $form_unsynced_list.append("<li><a id='" + localStorage.key(key) +"' class='form_unsynced_list_item ' href='#'>" + email + "</a></li>");
+                        $form_unsynced_list.append("<li><a id='" + email +"' class='form_unsynced_list_item ' href='#'>" + email + "</a></li>");
 
                         //clear form after submission
                         $form.each(function(){
@@ -86,11 +105,6 @@ $(function() {
                         // sorry! no web storage support..
                     }
                 }
-
-                //redirect to start page
-                setTimeout(function(){
-                    window.location.href = "../index.php";
-                }, delay);
             }else{
                 //set error message
                 $("#form_registration_error_message").text('Gelieve een geldig e-mailadres in te geven');
@@ -115,16 +129,16 @@ $(function() {
         e.preventDefault();
 
         //get key
-        var key = $(this).text();
-
-        //get value
-        var value = localStorage.getItem(key);
+        var email = $(this).text();
 
         //add data to form
-        $form_mail.val(value);
+        $form_mail.val(email);
 
-        //remove from localstorage
-        localStorage.removeItem(key);
+        //remove from array
+        emails.remove(email);
+
+        //set mail in local storage
+        localStorage.setItem("emails", JSON.stringify(emails));
 
         //remove from list
         $(this).remove();
@@ -135,3 +149,14 @@ function validEmail(input) {
     var reg= new RegExp("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
     return (input.match(reg) == null) ? false : true;
 }
+
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};

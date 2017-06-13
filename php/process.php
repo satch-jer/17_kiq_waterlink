@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $errors["email"] = "Gelieve een geldig e-mailadres in te geven";
             }
         }else{
-            $errors["email"] = "Gelieve onze voorwaarden te accepteren";
+            $errors["email"] = "Gelieve te accepteren dat we jouw e-mail adres mogen gebruiken";
         }
     }else{
         $errors["email"] = "Gelieve een e-mailadres in te geven";
@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             //insert player in db
             if($player->insertPlayer()){
-                $feedback_success = "Woehoew, de registratie verliep succesvol!";
+                $feedback_success = "Woehoew,  we hebben jouw een mail gestuurd met de wedstrijdvraag. Indien je deze niet terugvindt in je inbox, check dan zeker je spam!!";
             }else{
                 $feedback_error = "Er ging iets mis met het opslaan van de gebruiker in de databank, probeer later opnieuw.";
             }

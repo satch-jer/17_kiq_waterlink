@@ -60,7 +60,7 @@ $(function() {
                             $('form')[0].reset();
 
                             //show feedback
-                            $("#form_registration_success_message").text("Woehoew, deelname voltooid!");
+                            $("#form_registration_success_message").text("Woehoew,  we hebben jouw een mail gestuurd met de wedstrijdvraag. Indien je deze niet terugvindt in je inbox, check dan zeker je spam!");
                         }else{
                             //set errormessages
                             $.each(data, function(i,v){
@@ -111,7 +111,7 @@ $(function() {
             }
         }else{
             //set error message
-            $("#form_registration_error_message").text('Gelieve de algemene voorwaarden te accepteren');
+            $("#form_registration_error_message").text('Gelieve te accepteren dat we jouw e-mail adres mogen gebruiken');
         }
     });
 

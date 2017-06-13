@@ -9,7 +9,7 @@ include('../php/process.php');
 
 <head>
     <meta charset="UTF-8">
-    <meta name="author" content="Water-Link">
+    <meta name="author" content="water-link">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -19,7 +19,7 @@ include('../php/process.php');
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styling.css">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <title>Registreer je nu | Water-Link</title>
+    <title>Registreer je nu | water-link</title>
 
     <link rel="shortcut icon" href="../assets/icons/favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="../assets/icons/apple-touch-icon.png" />
@@ -35,7 +35,7 @@ include('../php/process.php');
 
 <body>
 
-    <img id="logo" src="../assets/speelwin.svg" alt="Speel en win met Water-Link">
+    <img id="logo" src="../assets/speelwin.svg" alt="Speel en win met water-link">
 
     <section>
         <div class="container">
@@ -45,7 +45,7 @@ include('../php/process.php');
                 <form id="form_registration" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" novalidate>
                     <div class="row">
                         <div class="form-group col-sm-12">
-                            <label for="form_registration_input_email">Laat hier jouw e-mailadres achter en wij sturen jouw de link om deel te nemen aan de Water-Link wedstrijd! Veel succes! <span>*</span></label>
+                            <label for="form_registration_input_email">Laat hier jouw e-mailadres achter en wij sturen jouw de link om deel te nemen aan de water-link wedstrijd! Veel succes!</label>
                             <input class="form-control" name="form_registration_input_email" id="form_registration_input_email" placeholder="E-mail" autocomplete="off" value="<?php echo $email;?>">
                         </div>
                     </div>
